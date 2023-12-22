@@ -69,21 +69,5 @@
         saveImageInfoToJson(imageInfoArray);
       }
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // This script assumes that 'nodemon' is installed globally.
-        // If not, you can install it using: npm install -g nodemon
-        const { exec } = require("child_process");
-        const serverProcess = exec("nodemon server.js");
-
-        serverProcess.stdout.on("data", (data) => {
-          console.log(`Server Output: ${data}`);
-        });
-
-        serverProcess.stderr.on("data", (data) => {
-          console.error(`Server Error: ${data}`);
-        });
-      });
-    </script>
   </body>
 </html>
