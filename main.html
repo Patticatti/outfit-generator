@@ -1,21 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main UI</title>
-    <link rel="icon" type="images/x-icon" href="images/moyai.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/sle5sky.css">
-</head>
+    <link rel="icon" type="images/x-icon" href="images/moyai.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/sle5sky.css" />
+  </head>
 
-<body>
-    <h1> WELCOME </h1>
-    <p>Please upload your first clothing item: </p>
+  <body>
+    <h1>WELCOME</h1>
+    <p>Please upload your first clothing item:</p>
     <label for="fileInput">Click to open file:</label>
-    <input type="file" id="fileInput" multiple onchange="handleFileSelect()">
+    <input type="file" id="fileInput" multiple onchange="handleFileSelect()" />
     <div id="imageContainer"></div>
     <button onclick="finishUpload()">Next</button>
-</body>
-<script src="main.js"></script>
+    <script>
+      var imageInfoArray = [];
+      function handleFileSelect() {
+        const fileInput = document.getElementById("fileInput");
+        const selectedFiles = fileInput.files;
+
+        if (selectedFiles.length === 0) {
+          alert("No files selected.");
+          return;
+        }
+
+        // Filter out non-image files
+        const imageFiles = Array.from(selectedFiles).filter((file) =>
+          file.type.startsWith("image/")
+        );
+
+        if (imageFiles.length === 0) {
+          return;
+        }
+
+        // Process image files
+        imageFiles.forEach((imageFile) => {
+          displayImage(imageFile);
+        });
+
+        // Reset the file input to allow selecting the same files again
+        fileInput.value = "";
+      }
+
+      function displayImage(imageFile) {
+        const imageContainer = document.getElementById("imageContainer");
+        const imgElement = document.createElement("img");
+
+        // Set the image source to a data URL representing the selected file
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imgElement.src = e.target.result;
+        };
+        reader.readAsDataURL(imageFile);
+
+        // Set additional attributes or styles as needed
+        imgElement.alt = imageFile.name;
+        imgElement.style.maxWidth = "100px";
+
+        // Append the image to the container
+        imageContainer.appendChild(imgElement);
+      }
+      function finishUpload() {
+        saveImageInfoToJson();
+      }
+    </script>
+    <script src="main.js"></script>
+  </body>
 </html>
