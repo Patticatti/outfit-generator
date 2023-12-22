@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main UI</title>
     <link rel="icon" type="images/x-icon" href="images/moyai.png" />
-    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://use.typekit.net/sle5sky.css" />
   </head>
 
@@ -16,8 +15,9 @@
     <input type="file" id="fileInput" multiple onchange="handleFileSelect()" />
     <div id="imageContainer"></div>
     <button onclick="finishUpload()">Next</button>
+    <script src="client.js"></script>
     <script>
-      var imageInfoArray = [];
+      const imageInfoArray = [];
       function handleFileSelect() {
         const fileInput = document.getElementById("fileInput");
         const selectedFiles = fileInput.files;
@@ -39,6 +39,7 @@
         // Process image files
         imageFiles.forEach((imageFile) => {
           displayImage(imageFile);
+          imageInfoArray.append(imageFile);
         });
 
         // Reset the file input to allow selecting the same files again
@@ -64,9 +65,24 @@
         imageContainer.appendChild(imgElement);
       }
       function finishUpload() {
-        saveImageInfoToJson();
+        saveImageInfoToJson(imageFile);
       }
     </script>
-    <script src="main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // This script assumes that 'nodemon' is installed globally.
+        // If not, you can install it using: npm install -g nodemon
+        const { exec } = require("child_process");
+        const serverProcess = exec("nodemon server.js");
+
+        serverProcess.stdout.on("data", (data) => {
+          console.log(`Server Output: ${data}`);
+        });
+
+        serverProcess.stderr.on("data", (data) => {
+          console.error(`Server Error: ${data}`);
+        });
+      });
+    </script>
   </body>
 </html>
