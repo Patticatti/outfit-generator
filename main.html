@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main UI</title>
+    <link rel="icon" type="images/x-icon" href="images/moyai.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/sle5sky.css">
+</head>
+
+<body>
+    <h1> WELCOME </h1>
+    <p>Please upload your first clothing item: </p>
+    <label for="fileInput">Click to open file:</label>
+    <input type="file" id="fileInput" multiple onchange="handleFileSelect()">
+    <div id="imageContainer"></div>
+    <button>Next</button>
+</body>
+<script src="main.js"></script>
+</html>
