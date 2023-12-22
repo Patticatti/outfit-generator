@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main UI</title>
     <link rel="icon" type="images/x-icon" href="images/moyai.png" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="stylesheet" href="https://use.typekit.net/sle5sky.css" />
   </head>
 
@@ -39,7 +40,7 @@
         // Process image files
         imageFiles.forEach((imageFile) => {
           displayImage(imageFile);
-          imageInfoArray.append(imageFile);
+          imageInfoArray.push(imageFile);
         });
 
         // Reset the file input to allow selecting the same files again
@@ -65,7 +66,7 @@
         imageContainer.appendChild(imgElement);
       }
       function finishUpload() {
-        saveImageInfoToJson(imageFile);
+        saveImageInfoToJson(imageInfoArray);
       }
     </script>
     <script>
