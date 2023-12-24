@@ -1,6 +1,19 @@
-const { inc, dec, getCount } = require("./myModule");
+const events = require("events");
 
-inc();
-inc();
-inc();
-console.log(`the count is ${getCount()}`);
+let emitter = new events.EventEmitter();
+
+emitter.on("customEvent", (message, user) => {
+  console.log(`${user}: ${message}`);
+});
+
+emitter.emit("customEvent", "Hello World", "Computer");
+emitter.emit("customEvent", "That's pretty cool", "Patti");
+
+process.stdin.on("data", (data) => {
+  const input = data.toString().trim();
+  if (input === "exit") {
+    emitter.emit("customEvent", "Goodbye!", "process");
+    process.exit();
+  }
+  emitter.emit("customEvent", data.toString().trim(), "terminal");
+});
