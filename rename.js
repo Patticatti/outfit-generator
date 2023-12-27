@@ -12,7 +12,7 @@ const fs = require("fs");
 // });
 
 //fs.unlinkSync("./lib/project-config.js");
-fs.unlink("notes.md", function (err) {
+fs.unlink("./lib/notes.md", function (err) {
   if (err) {
     throw err;
   }
