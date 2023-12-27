@@ -11,6 +11,10 @@ let md = `
     * Readline CLIs
 `;
 
-fs.writeFile("javascript.md", md.trim(), function () {
+fs.writeFile("javascript.md", md.trim(), function (err) {
+  if (err) {
+    throw err;
+  }
+  fs.appendFileSync("javascript.md", "\n\n### Node.js Everyone!");
   console.log("Markdown Created");
 });
