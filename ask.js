@@ -1,15 +1,25 @@
-const collectAnswers = require("./lib/collectAnswers");
-
-const questions = [
+let questions = [
   "What is your name?",
   "Where do you live?",
   "What are you going to do with nose.js?",
 ];
 
-const answerEvents = collectAnswers(questions, (answers) => {
-  console.log("Thank you for your answers!");
-  console.log(answers);
-  process.exit();
+let answers = [];
+
+function ask(i) {
+  process.stdout.write(`\n\n\n\n ${questions[i]}`);
+  process.stdout.write(` > `);
+}
+
+process.stdin.on("data", function (data) {
+  answers.push(data.toString().trim());
+  if (answers.length < questions.length) {
+    ask(answers.length);
+  } else {
+    process.exit();
+  }
 });
 
-answerEvents.on("answer", (answer) => console.log(`The answer is ${answer}`));
+process.on("exit", function () {
+  process.stdout.write("\n\n\n\n ");
+});
